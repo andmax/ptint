@@ -1,14 +1,12 @@
 /**
  *
- *    Render Volume GPU
- *
- *  File: tables.h
+ *   Ternary Truth Tables
  *
  *  Authors:
- *    Andre Maximo
- *    Ricardo Marroquim
+ *    Maximo, Andre
+ *    Marroquim, Ricardo
  *
- *  Last Update: Feb 03, 2006
+ *  Date: Jan-May, 2006
  *
  */
 
