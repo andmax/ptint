@@ -11,8 +11,9 @@ GDIR = $(HOME)/lcgtk/geomTypes
 EDIR = $(HOME)/lcgtk/errHandle
 KDIR = $(HOME)/lcgtk/glslKernel
 VDIR = $(HOME)/andmaxcodes/offVol
+PDIR = $(HOME)/andmaxcodes/psiGammaTable
 
-INCLUDES = -I$(GDIR) -I$(EDIR) -I$(KDIR) -I$(VDIR)
+INCLUDES = -I$(GDIR) -I$(EDIR) -I$(KDIR) -I$(VDIR) -I$(PDIR)
 
 LIBDIR = -L$(KDIR)
 
