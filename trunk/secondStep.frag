@@ -27,16 +27,6 @@ uniform float preIntTexSize; ///< Pre-Integration (Quad) Texture width
 
 uniform float maxEdgeLength; ///< Maximum edge length
 
-/// Exponential Function
-/// @arg x float number
-/// @return e^x value
-
-float exp(float x) {
-
-	return ( pow(2.7182, x) );
-
-}
-
 /// Main
 
 void main(void) {
