@@ -21,55 +21,56 @@
  *
  */
 
-uniform sampler1D tfTex;
-uniform float preIntTexSize;
-uniform sampler2D psiGammaTableTex;
+uniform sampler1D tfTex; ///< Transfer Function Texture
+uniform sampler2D psiGammaTableTex; ///< Psi Gamma Table (Pre-Integration) Texture
+uniform float preIntTexSize; ///< Pre-Integration (Quad) Texture width
 
-uniform float maxEdgeLength;
+uniform float maxEdgeLength; ///< Maximum edge length
 
 /// Exponential Function
+/// @arg x float number
+/// @return e^x value
 
 float exp(float x) {
 
-	return ( pow(2.7182, x) ); // # number # e = 2.7182
+	return ( pow(2.7182, x) );
 
 }
 
-void main(void)
-{
-    //----- Input data ( sf, sb, thickness ) -----
-    float sf = gl_Color.r;
-    float sb = gl_Color.g;
-    float l = gl_Color.b; //thickness
+/// Main
 
-    if (l == 0.0) // no fragment color
-	discard;
+void main(void) {
 
-    l = l / maxEdgeLength;
+	float sf = gl_Color.r; ///< Scalar front
+	float sb = gl_Color.g; ///< Scalar back
+	float l = gl_Color.b; ///< Thickness
 
-    vec4 colorFront = texture1D(tfTex, sf).rgba;
-    vec4 colorBack = texture1D(tfTex, sb).rgba;
+	if (l == 0.0) /// No fragment color
+		discard;
 
-    vec4 color;
+	l /= maxEdgeLength; /// Normalize thickness [0, 1]
 
-    vec2 tau = vec2(colorFront.a, colorBack.a) * l;
+	vec4 colorFront = texture1D(tfTex, sf);
+	vec4 colorBack = texture1D(tfTex, sb);
 
-    vec2 halfVec = vec2(0.5);
+	vec4 color;
 
-    //float zeta = texture1D(expTex, dot(tau, halfVec)).a; // using tex1d for exponential
+	vec2 tau = vec2(colorFront.a, colorBack.a) * l;
 
-    float zeta = exp( -dot(tau, halfVec) );
+	vec2 halfVec = vec2(0.5);
 
-    if (zeta == 1.0) // no fragment color
-	discard;
+	float zeta = exp( -dot(tau, halfVec) );
 
-    vec2 gamma = tau / (1.0 + tau);
+	if (zeta == 1.0) /// No fragment color
+		discard;
 
-    float psi = texture2D(psiGammaTableTex, gamma + (halfVec / vec2(preIntTexSize))).a;
+	vec2 gamma = tau / (1.0 + tau);
 
-    color.rgb = colorFront.rgb*(1.0 - psi) + colorBack.rgb*(psi - zeta);
-    color.a = 1.0 - zeta;
+	float psi = texture2D(psiGammaTableTex, gamma + (halfVec / vec2(preIntTexSize))).a;
 
-    //----- Output color -----
-    gl_FragColor = color;
+	color.rgb = colorFront.rgb*(1.0 - psi) + colorBack.rgb*(psi - zeta);
+	color.a = 1.0 - zeta;
+
+	gl_FragColor = color; ///< Output fragment color
+
 }
