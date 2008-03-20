@@ -469,9 +469,6 @@ void ptVol::firstStep() {
 
 	if (!firstStepShader) return;
 
-	GLint currentDrawBuffer;
-	glGetIntegerv(GL_DRAW_BUFFER, &currentDrawBuffer);
-
 	/// Create 2 output FBOs to return data from the first fragment shader
 	GLenum colorBuffers[2] = { GL_COLOR_ATTACHMENT0_EXT, GL_COLOR_ATTACHMENT1_EXT };
 	glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, frameBuffer);
@@ -493,7 +490,6 @@ void ptVol::firstStep() {
 
 	/// Bind back the framebuffer
 	glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, 0);
-	glDrawBuffer(currentDrawBuffer);
 
 }
 

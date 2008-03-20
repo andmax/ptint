@@ -35,6 +35,8 @@ static int xmouse, ymouse;
 
 static frameType volumeFrame = firstStill; ///< Volume frame status
 
+static bool alwaysRotating = false; ///< Always rotating state
+
 static ptVol app; ///< PT Volume application
 
 static GLdouble firstStepTime = 0.0, sortTime = 0.0, setupArraysTime = 0.0,
@@ -148,6 +150,11 @@ void glReshape(int w, int h) {
 void glKeyboard( unsigned char key, int x, int y ) {
 
 	switch(key) {
+	case 'r': case 'R': // always rotating flag
+		alwaysRotating = !alwaysRotating;
+		if (alwaysRotating) volumeFrame = rotating;
+		else volumeFrame = firstStill;
+		return;
 	case 'q': case 'Q': case 27: // quit application
 		glutDestroyWindow( glutGetWindow() );
 		return;
@@ -214,7 +221,18 @@ void glMotion(int x, int y) {
 
 void glIdle(void) {
 
-	glutPostRedisplay();
+	if (alwaysRotating) {
+
+		if (volumeFrame != rotating) volumeFrame = rotating;
+
+		oldx += 0.5;
+		oldy += 0.5;
+		if (oldx > 360.0) oldx -= 360.0;
+		if (oldy > 360.0) oldy -= 360.0;
+
+		glutPostRedisplay();
+
+	}
 
 }
 
@@ -241,7 +259,7 @@ void glAppSetup(void) {
 	glutKeyboardFunc(glKeyboard);
 	glutMouseFunc(glMouse);
 	glutMotionFunc(glMotion);
-	glutIdleFunc(NULL);
+	glutIdleFunc(glIdle);
 
 	/// ModelviewProjection setup (<-)
 	glMatrixMode(GL_PROJECTION); glLoadIdentity();
