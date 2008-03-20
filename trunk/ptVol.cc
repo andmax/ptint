@@ -1,7 +1,11 @@
 /**
  *   Projection Tetrahedra Volume
  *
- * Maximo, Andre -- March, 2008
+ *  Authors:
+ *    Maximo, Andre
+ *    Marroquim, Ricardo
+ *
+ *  Date: Jan-May, 2006
  *
  */
 
