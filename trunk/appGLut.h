@@ -18,8 +18,6 @@ extern "C" {
 #include <GL/glut.h> // gl-utility library
 }
 
-#define MULTFACT 1000
-
 enum frameType { still, firstStill, rotating }; ///< Frame type status
 
 /// Global Variables
