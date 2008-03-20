@@ -11,7 +11,7 @@
 
 /**
  *   ptVol : defines a class for volume rendering using projected
- *           tetrahedron with partial pre-integration PTINT in GPU
+ *           tetrahedra with partial pre-integration PTINT in GPU
  *
  * C++ header.
  *
