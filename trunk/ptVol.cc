@@ -13,7 +13,7 @@
  *   ptVol : defines a class for volume rendering using projected
  *           tetrahedra with partial pre-integration PTINT in GPU
  *
- * C++ header.
+ * C++ implementation.
  *
  */
 
@@ -107,7 +107,7 @@ bool ptVol::glSetup() {
 		glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
 
 		/// Background color
-		glClearColor(backGround.r(), backGround.g(), backGround.b(), 0.0);
+		glClearColor(backGround.r(), backGround.g(), backGround.b(), 0.0f);
 
 		/// Vertices and Tetrahedra textures size
 		vertTexSize = (GLuint)ceil(sqrt(volume.numVerts));

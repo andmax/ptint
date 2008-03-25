@@ -17,7 +17,7 @@ INCLUDES = -I$(GDIR) -I$(EDIR) -I$(KDIR) -I$(VDIR) -I$(PDIR)
 
 LIBDIR = -L$(KDIR)
 
-OBJS = appVol.o ptVol.o ptint.o
+OBJS = ptVol.o appVol.o ptGLut.o tfGLut.o ptint.o
 
 SRCS = $(OBJS:.o=.cc)
 

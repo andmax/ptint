@@ -41,6 +41,9 @@ public:
 	/// Debug flag
 	bool debug;
 
+	/// Volume name
+	string volName;
+
 	/// File extensions
 	string offExt, tfExt, lmtExt;
 

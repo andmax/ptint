@@ -68,14 +68,14 @@ bool appVol::setup(int& argc, char** argv) {
 		if ( argc != 2 ) throw errHandle(usageErr, ssUsage.str().c_str());
 
 		stringstream ioss;
-		string fnBase, fnOff, fnTF, fnLmt;
+		string fnOff, fnTF, fnLmt;
 
 		ioss << searchDir << argv[1];
-		ioss >> fnBase;
+		ioss >> volName;
 
-		fnOff = fnBase + offExt;
-		fnTF = fnBase + tfExt;
-		fnLmt = fnBase + lmtExt;
+		fnOff = volName + offExt;
+		fnTF = volName + tfExt;
+		fnLmt = volName + lmtExt;
 
 		if (debug) cout << endl << "::: Time :::" << endl << endl;
 
