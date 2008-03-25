@@ -1,5 +1,4 @@
 /**
- *
  *   Ternary Truth Tables
  *
  *  Authors:
@@ -10,15 +9,23 @@
  *
  */
 
-//
-//  Basis Graph:
-//
-//       v2
-//
-//   v3  v4  v1
-//
-//       v0
-//
+
+/**
+ *   TTT : ternary truth tables are used to order the projected
+ *         vertices in basis graph and triangle fan rendering.
+ *
+ *  Basis Graph:
+ *
+ *       v2
+ *
+ *   v3  v4  v1
+ *
+ *       v0
+ *
+ * C++ header.
+ *
+ */
+
 
 //--------- ORDER TABLE ----------------
 // Do not use this for triangle fan

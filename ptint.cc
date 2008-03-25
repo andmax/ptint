@@ -1,9 +1,10 @@
 /**
- *   PTINT -- Projected Tetrahedra with Partial Pre-Integration
  *
- * Maximo, Andre -- March, 2008
+ *    PTINT -- Projected Tetrahedra with Partial Pre-Integration
  *
- */
+ *  Maximo, Andre -- March, 2008
+ *
+ **/
 
 /**
  *   Main
@@ -27,7 +28,9 @@ int main(int argc, char** argv) {
 	if ( !app.setup(argc, argv) )
 		return 1;
 
-	glAppSetup();
+	glTFSetup();
+
+	glPTSetup();
 
 	if ( !app.glSetup() )
 		return 1;
