@@ -29,8 +29,6 @@ extern "C" {
 #include <set>
 #include <string>
 
-#define ABS(x)  ((x<0.0)?-x:x)
-
 using std::set;
 
 extern
@@ -53,7 +51,7 @@ public:
 	/// Constructor -- instantiate null-tf
 	transferFunction(vec4* _tf = NULL, real _bt = 1.0) : tf(_tf),
 		numColors(256), brightness(_bt), minBrightness(0.0),
-		maxBrightness(30.0), ppoint(0), controlPoints(),
+		maxBrightness(8.0), ppoint(0), controlPoints(),
 		minOrthoSize(-0.2), maxOrthoSize(1.3),
 		winWidth(400), winHeight(300), stepColor(0),
 		stepBrightness(0), tfName() {
@@ -202,12 +200,81 @@ public:
 
 	}
 
+	/// Color code
+	void colorCode(int cc) {
+
+		natural quarter = numColors / 4;
+		real stepQuarter = 1.0 / (real)quarter;
+
+		for (GLuint i = 0; i < numColors; ++i) {
+
+			if (cc == 1) {
+
+				if (i < quarter) { tf[i][0] = 1.0; tf[i][1] = i*stepQuarter; tf[i][2] = 0.0; }
+				else if (i < 2*quarter) { tf[i][0] = 1.0 - (i-quarter)*stepQuarter; tf[i][1] = 1.0; tf[i][2] = 0.0; }
+				else if (i < 3*quarter) { tf[i][0] = 0.0; tf[i][1] = 1.0; tf[i][2] = (i-2*quarter)*stepQuarter; }
+				else if (i < 4*quarter) { tf[i][0] = 0.0; tf[i][1] = 1.0 - (i-3*quarter)*stepQuarter; tf[i][2] = 1.0; }
+
+			} else if (cc == 2) {
+
+				if (i < quarter) { tf[i][0] = 0.0; tf[i][1] = i*stepQuarter; tf[i][2] = 1.0; }
+				else if (i < 2*quarter) { tf[i][0] = 0.0; tf[i][1] = 1.0; tf[i][2] = 1.0 - (i-quarter)*stepQuarter; }
+				else if (i < 3*quarter) { tf[i][0] = (i-2*quarter)*stepQuarter; tf[i][1] = 1.0; tf[i][2] = 0.0; }
+				else if (i < 4*quarter) { tf[i][0] = 1.0; tf[i][1] = 1.0 - (i-3*quarter)*stepQuarter; tf[i][2] = 0.0; }
+
+			} else if (cc == 3) {
+
+				if (i < quarter) { tf[i][0] = 0.0; tf[i][1] = 1.0; tf[i][2] = i*stepQuarter; }
+				else if (i < 2*quarter) { tf[i][0] = 0.0; tf[i][1] = 1.0 - (i-quarter)*stepQuarter; tf[i][2] = 1.0; }
+				else if (i < 3*quarter) { tf[i][0] = (i-2*quarter)*stepQuarter; tf[i][1] = 0.0; tf[i][2] = 1.0; }
+				else if (i < 4*quarter) { tf[i][0] = 1.0; tf[i][1] = 0.0; tf[i][2] = 1.0 - (i-3*quarter)*stepQuarter; }
+
+			} else if (cc == 4) {
+
+				if (i < quarter) { tf[i][0] = 1.0; tf[i][1] = 0.0; tf[i][2] = i*stepQuarter; }
+				else if (i < 2*quarter) { tf[i][0] = 1.0 - (i-quarter)*stepQuarter; tf[i][1] = 0.0; tf[i][2] = 1.0; }
+				else if (i < 3*quarter) { tf[i][0] = 0.0; tf[i][1] = (i-2*quarter)*stepQuarter; tf[i][2] = 1.0; }
+				else if (i < 4*quarter) { tf[i][0] = 0.0; tf[i][1] = 1.0; tf[i][2] = 1.0-(i-3*quarter)*stepQuarter; }
+
+			} else if (cc == 5) {
+
+				if (i < quarter) { tf[i][0] = i*stepQuarter; tf[i][1] = 1.0; tf[i][2] = 0.0; }
+				else if (i < 2*quarter) { tf[i][0] = 1.0; tf[i][1] = 1.0 - (i-quarter)*stepQuarter; tf[i][2] = 0.0; }
+				else if (i < 3*quarter) { tf[i][0] = 1.0; tf[i][1] = 0.0; tf[i][2] = (i-2*quarter)*stepQuarter; }
+				else if (i < 4*quarter) { tf[i][0] = 1.0 - (i-3*quarter)*stepQuarter; tf[i][1] = 0.0; tf[i][2] = 1.0; }
+
+			} else if (cc == 6) {
+
+				if (i < quarter) { tf[i][0] = i*stepQuarter; tf[i][1] = 0.0; tf[i][2] = 1.0; }
+				else if (i < 2*quarter) { tf[i][0] = 1.0; tf[i][1] = 0.0; tf[i][2] = 1.0 - (i-quarter)*stepQuarter; }
+				else if (i < 3*quarter) { tf[i][0] = 1.0; tf[i][1] = (i-2*quarter)*stepQuarter; tf[i][2] = 0.0; }
+				else if (i < 4*quarter) { tf[i][0] = 1.0 - (i-3*quarter)*stepQuarter; tf[i][1] = 1.0; tf[i][2] = 0.0; }
+
+			} else if (cc == 7) {
+
+				tf[i][0] = i * stepColor; tf[i][1] = 1.0 - i * stepColor; tf[i][2] = 0.0;
+
+			} else if (cc == 8) {
+
+				tf[i][0] = 1.0 - i * stepColor; tf[i][1] = i * stepColor; tf[i][2] = 0.0;
+
+			} else if (cc == 9) {
+
+				tf[i][0] = 1.0 - i * stepColor; tf[i][1] = 1.0 - i * stepColor; tf[i][2] = 1.0 - i * stepColor;
+
+			} else if (cc == 0) {
+
+				tf[i][0] = i * stepColor; tf[i][1] = i * stepColor; tf[i][2] = i * stepColor;
+			}
+
+		}
+
+	}
+
 	/// Draw transfer function informations
 	void draw(void) {
 
 		if (!tf) return;
-
-		glClear(GL_COLOR_BUFFER_BIT);
 
 		glBegin(GL_QUADS); /// Transfer Function RGBAs
 

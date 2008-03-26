@@ -130,6 +130,10 @@ public:
 	}
 	void secondStep(void);
 
+	/// Refresh Transfer Function (TF) and Brightness
+	/// @arg brightness term
+	void refreshTFandBrightness(GLfloat brightness = 1.0);
+
 private:
 
 	/// Create Arrays
