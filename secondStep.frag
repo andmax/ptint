@@ -27,6 +27,8 @@ uniform float preIntTexSize; ///< Pre-Integration (Quad) Texture width
 
 uniform float maxEdgeLength; ///< Maximum edge length
 
+uniform float brightness; ///< Brightness term
+
 /// Main
 
 void main(void) {
@@ -37,6 +39,8 @@ void main(void) {
 
 	if (l == 0.0) /// No fragment color
 		discard;
+
+	l *= brightness; /// Brightness by thickness
 
 	l /= maxEdgeLength; /// Normalize thickness [0, 1]
 

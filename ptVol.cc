@@ -437,6 +437,7 @@ bool ptVol::createShaders(void) {
 	secondStepShader->set_uniform("psiGammaTableTex", 6);
 	secondStepShader->set_uniform("preIntTexSize", (GLfloat)PSI_GAMMA_SIZE_BACK);
 	secondStepShader->set_uniform("maxEdgeLength", volume.maxEdgeLength);
+	secondStepShader->set_uniform("brightness", (GLfloat)1.0);
 	secondStepShader->use(0);
 
 	return true;
@@ -529,6 +530,10 @@ void ptVol::sort() {
 		for (GLuint i = 0; i < nT; ++i) {
 
 			bucket = (GLuint)(outputBuffer0[i*4 + 2] + 1.0) * (GLuint)((NUM_LAYERS-1) * 0.5);
+
+			if (bucket < 0) bucket = 0;
+			if (bucket > NUM_LAYERS-1) bucket = NUM_LAYERS-1;
+
 			centroidBucket[bucket].push_back(i);
 
 		}
@@ -632,8 +637,6 @@ void ptVol::secondStep() {
 
 	glEnable(GL_BLEND);
 
-	glClear(GL_COLOR_BUFFER_BIT);
-
 	secondStepShader->use();
 
 	glMultiDrawElements(GL_TRIANGLE_FAN, count, GL_UNSIGNED_INT,
@@ -642,5 +645,28 @@ void ptVol::secondStep() {
 	secondStepShader->use(0);
 
 	glDisable(GL_BLEND);
+
+}
+
+/// Refresh Transfer Function (TF) and Brightness
+void ptVol::refreshTFandBrightness(GLfloat brightness) {
+
+	GLfloat *tfTexBuffer;
+	tfTexBuffer = new GLfloat[256*4];
+
+	for (GLuint i = 0; i < 256; ++i)
+		for (GLuint j = 0; j < 4; ++j)
+			tfTexBuffer[i*4 + j] = volume.tf[i][j];
+
+	glActiveTexture(GL_TEXTURE5);
+	glBindTexture(GL_TEXTURE_1D, tfTex);
+	glTexSubImage1D(GL_TEXTURE_1D, 0, 0, 256, GL_RGBA, GL_FLOAT, tfTexBuffer);
+
+	secondStepShader->use();
+	secondStepShader->set_uniform("tfTex", 5);
+	secondStepShader->set_uniform("brightness", brightness);
+	secondStepShader->use(0);
+
+	delete [] tfTexBuffer;
 
 }

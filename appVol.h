@@ -34,6 +34,7 @@ class appVol {
 
 public:
 
+	/// OFF Volume
 	offVol< GLfloat, GLuint > volume;
 
 	typedef offVol< GLfloat, GLuint >::vec3 vec3;

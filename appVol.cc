@@ -59,7 +59,7 @@ bool appVol::setup(int& argc, char** argv) {
 		ssUsage << "Usage: " << argv[0] << " 'file'" << endl << endl
 			<< "  Where the following files will be readed: " << endl
 			<< "  |_ (x) 'file'" << offExt << " : vertex position and tetrahedra vertex ids" << endl
-			<< "  |_ (-) 'file'" << tfExt << " : transfer function with 255 colors" << endl
+			<< "  |_ (-) 'file'" << tfExt << " : transfer function with 256 colors" << endl
 			<< "  |_ (-) 'file'" << lmtExt << " : volume limits with maxEdgeLength, maxZ and minZ " << endl
 			<< "  Reading from the directory: " << searchDir << endl
 			<< "  Files marked by (x) need to exist." << endl
