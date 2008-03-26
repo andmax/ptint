@@ -89,6 +89,10 @@ public:
 	/// @return brightness
 	real getBrightness(void) { return brightness; }
 
+	/// Get TF name
+	/// @return file path (TF name)
+	string getTFName(void) { return tfName; }
+
 	/// Update picked point related value
 	/// @arg x, y mouse position when changing
 	void updatePickedPoint(int x, int y) {
@@ -164,8 +168,8 @@ public:
 
 		for (GLuint i = 0; i < numColors; ++i) {
 
-			if ( (y >= yScreen(tf[i][3]) - 5) && (y <= yScreen(tf[i][3]) + 5)
-			     && (x >= xScreen(i * stepColor) - 5) && (x <= xScreen(i * stepColor) + 5) ) {
+			if ( (y >= yScreen(tf[i][3]) - 2) && (y <= yScreen(tf[i][3]) + 2)
+			     && (x >= xScreen(i * stepColor) - 2) && (x <= xScreen(i * stepColor) + 2) ) {
 
 				controlPoints.insert(i);
 				return;
@@ -206,7 +210,7 @@ public:
 		natural quarter = numColors / 4;
 		real stepQuarter = 1.0 / (real)quarter;
 
-		for (GLuint i = 0; i < numColors; ++i) {
+		for (natural i = 0; i < numColors; ++i) {
 
 			if (cc == 1) {
 
