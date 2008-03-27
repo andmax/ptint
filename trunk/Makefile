@@ -10,10 +10,9 @@ CXX = g++
 GDIR = $(HOME)/lcgtk/geomTypes
 EDIR = $(HOME)/lcgtk/errHandle
 KDIR = $(HOME)/lcgtk/glslKernel
-VDIR = $(HOME)/andmaxcodes/offVol
-PDIR = $(HOME)/andmaxcodes/psiGammaTable
+PDIR = ../psiGammaTable
 
-INCLUDES = -I$(GDIR) -I$(EDIR) -I$(KDIR) -I$(VDIR) -I$(PDIR)
+INCLUDES = -I$(GDIR) -I$(EDIR) -I$(KDIR) -I$(PDIR)
 
 LIBDIR = -L$(KDIR)
 
