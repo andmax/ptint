@@ -547,8 +547,6 @@ void ptVol::setupAndReorderArrays() {
 
 	GLuint tetId = 0, currBucket = 0, idBucket = 0, idTTT, arrayId, indicesId, cnt;
 
-	sortMethod = none;
-
 	for(GLuint i = 0; i < volume.numTets; ++i) {
 
 		/// Switch to the selected sort method
