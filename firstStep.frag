@@ -35,7 +35,6 @@ vec3 vertProj[4]; ///< Vertex positions in screen space
 vec3 vertOrder[4]; ///< Vertices in right order (basis graph)
 float scalarOrder[4]; ///< color in right order (basis graph)
 float scalarOrig[4]; ///< Vertex original scalar value
-ivec4 tests; ///< Classification tests: 4
 float paramU1, paramU2; ///< Line x Line intersection parameters
 
 /// Output data in FBOs
@@ -99,6 +98,7 @@ float crossXY(vec3 a, vec3 b) {
 void ptClassification(void) {
 
 	vec4 cross;
+	ivec4 tests; ///< Classification tests: 4
 
 	vec3 vc1_0 = vertProj[1] - vertProj[0];
 	vec3 vc2_0 = vertProj[2] - vertProj[0];
