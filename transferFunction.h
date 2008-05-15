@@ -286,7 +286,7 @@ public:
 
 		for (GLuint i = 0; i < numColors; ++i) {
 
-			glColor3fv( &tf[i] );
+			glColor3fv( &tf[i][0] );
 			x0 = (i - 0.5) * stepColor; x1 = (i + 0.5) * stepColor;
 			glVertex2d( x0, 0.0); glVertex2d( x1, 0.0);
 			glVertex2d( x1, tf[i][3]); glVertex2d( x0, tf[i][3]);

@@ -41,6 +41,9 @@ static frameType volumeFrame = firstStill; ///< Volume frame status
 
 static bool alwaysRotating = false; ///< Always rotating state
 
+static bool whiteBG = true; ///< Back ground color
+static bool drawWire = false; ///< Draw volume wireframe
+
 static GLdouble firstStepTime = 0.0, sortTime = 0.0, setupArraysTime = 0.0,
 	secondStepTime = 0.0, totalTime = 0.0; ///< Time spent in each step
 
@@ -53,7 +56,7 @@ static bool showInfo = true; ///< show information flag
 
 void glPTShowInfo(void) {
 
-	glColor3f(BLACK);
+	glColor3f(BLUE);
 
 	if (showInfo) { /// Show timing and dataset informations
 
@@ -84,6 +87,10 @@ void glPTShowInfo(void) {
 		sprintf(str, "Resolution: %d x %d", winWidth, winHeight );
 		glWrite(-1.1, -0.7, str);
 
+		if (!showHelp)
+			glWrite(0.82, 1.1, "(?) open help");
+
+
 	}
 
 	if (showHelp) { /// Show help information
@@ -92,14 +99,12 @@ void glPTShowInfo(void) {
 		glWrite(-0.52,  0.4, "(left-button) rotate volume");
 		glWrite(-0.52,  0.3, "(middle-button) zoom volume");
 		glWrite(-0.52,  0.2, "(right-button) open menu");
-		glWrite(-0.52,  0.1, "(r) always rotating mode");
-		glWrite(-0.52,  0.0, "(s) show/close timing information");
-		glWrite(-0.52, -0.1, "(t) open transfer function window");
-		glWrite(-0.52, -0.2, "(q|esc) close application");
-
-	} else {
-
-		glWrite(0.82, 1.1, "(?) open help");
+		glWrite(-0.52,  0.1, "(b) change background W/B");
+		glWrite(-0.52,  0.0, "(w) draw volume wireframe");
+		glWrite(-0.52, -0.1, "(r) always rotating mode");
+		glWrite(-0.52, -0.2, "(s) show/close timing information");
+		glWrite(-0.52, -0.3, "(t) open transfer function window");
+		glWrite(-0.52, -0.4, "(q|esc) close application");
 
 	}
 
@@ -139,7 +144,8 @@ void glPTDisplay(void) {
 
 	}
 
-	app.secondStep(secondStepTime);
+	if (drawWire) app.drawWireFrame();
+	else app.secondStep(secondStepTime);
 
 	glPopMatrix();
 
@@ -167,6 +173,14 @@ void glPTKeyboard( unsigned char key, int x, int y ) {
 		showHelp = !showHelp;
 		if (showHelp) showInfo = false;
 		else showInfo = true;
+		break;
+	case 'b': case 'B': // change background
+		whiteBG = !whiteBG;
+		if (whiteBG) app.setColor(WHITE);
+		else app.setColor(BLACK);
+		break;
+	case 'w': case 'W': // wireframe
+		drawWire = !drawWire;
 		break;
 	case 'r': case 'R': // always rotating flag
 		alwaysRotating = !alwaysRotating;

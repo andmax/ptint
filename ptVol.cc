@@ -670,3 +670,38 @@ void ptVol::refreshTFandBrightness(GLfloat brightness) {
 	delete [] tfTexBuffer;
 
 }
+
+/// Draw volume wireframe
+void ptVol::drawWireFrame() {
+
+	glEnable(GL_BLEND);
+
+	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+
+	for (GLuint i = 0; i < volume.numTets; ++i) {
+
+		for (GLuint f = 0; f < 4; ++f) {
+
+			glColor4f( 1.0, 1.0, 0.0, 0.8 );
+
+			glBegin(GL_TRIANGLES);
+
+			for (GLuint k = 0; k < 3; ++k) {
+
+				GLuint vId = volume.tetList[i][(f+k)%4];
+
+				glVertex3fv( &volume.vertList[ vId ].xyz()[0] );
+
+			}
+
+			glEnd();
+
+		}
+
+	}
+
+	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+
+	glDisable(GL_BLEND);
+
+}
