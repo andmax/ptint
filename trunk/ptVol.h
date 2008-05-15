@@ -31,6 +31,7 @@
 /// Pre-defined colors
 #define WHITE 1.0f, 1.0f, 1.0f
 #define BLACK 0.0f, 0.0f, 0.0f
+#define BLUE  0.0f, 0.0f, 1.0f
 
 enum sortType { none, centroid, bucket }; ///< Three types of sort methods
 
@@ -63,6 +64,7 @@ public:
 	/// Set functions
 	void setColor(const GLclampf& _r, const GLclampf& _g, const GLclampf& _b) {
 		backGround = vec3( _r, _g, _b );
+		glClearColor(backGround.r(), backGround.g(), backGround.b(), 0.0);
 	}
 	void setOrtho(const GLdouble& _minOrtho, const GLdouble& _maxOrtho) {
 		minOrthoSize = _minOrtho;
@@ -133,6 +135,9 @@ public:
 	/// Refresh Transfer Function (TF) and Brightness
 	/// @arg brightness term
 	void refreshTFandBrightness(GLfloat brightness = 1.0);
+
+	/// Draw volume wireframe
+	void drawWireFrame(void);
 
 private:
 
