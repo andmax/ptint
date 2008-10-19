@@ -29,7 +29,6 @@ OBJS = ptVol.o appVol.o ptGLut.o tfGLut.o ptint.o
 
 SRCS = $(OBJS:.o=.cc)
 
-
 DEBUGFLAGS = -g
 OPTFLAGS = -O3 -ffast-math
 
