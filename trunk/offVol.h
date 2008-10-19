@@ -65,7 +65,7 @@ public:
 	} incident;
 
 	/// Set iterator type to iterate through a set of vertices
-	typedef typename set< uint, less<uint> >::const_iterator setIt;
+	typedef typename set< unsigned, less<unsigned> >::const_iterator setIt;
 
 	natural numVerts, numTets, numExtFaces;
 

@@ -7,6 +7,15 @@
 CXX = g++
 #CXX = icpc
 
+# Win
+HOME = ../..
+APP = ptint.exe
+RM = del
+
+# Linux
+#APP = ptint
+#RM = rm -f \#*
+
 GDIR = $(HOME)/lcgtk/geomTypes
 EDIR = $(HOME)/lcgtk/errHandle
 KDIR = $(HOME)/lcgtk/glslKernel
@@ -20,7 +29,6 @@ OBJS = ptVol.o appVol.o ptGLut.o tfGLut.o ptint.o
 
 SRCS = $(OBJS:.o=.cc)
 
-APP = ptint
 
 DEBUGFLAGS = -g
 OPTFLAGS = -O3 -ffast-math
@@ -31,12 +39,18 @@ FLAGS = $(DEBUGFLAGS) \
 	$(OPTFLAGS) \
 	-Wall -Wno-deprecated \
 	$(INCLUDES) \
-	$(ICPCFLAGS)
+#	$(ICPCFLAGS)
 
-LIBS =	-lglut -lGL -lGLU -lXext \
-	-lXmu -lX11 -lm -lXi \
-	-lglslKernel \
-	$(ICPCFLAGS)
+# Win
+
+LIBS =	-lGLee -lglslKernel -lglut32 -lglu32 -lopengl32 -mwindows
+
+# Linux
+
+#LIBS =	-lglut -lGL -lGLU -lXext \
+#	-lXmu -lX11 -lm -lXi \
+#	-lglslKernel \
+#	$(ICPCFLAGS)
 
 #-----------------------------------------------------------------------------
 
@@ -53,7 +67,7 @@ depend:
 	$(CXX) $(FLAGS) -c $*.cc
 
 clean:
-	rm -f *.o *~ \#* $(APP) .depend
+	$(RM) *.o *~ $(APP) .depend
 
 ifeq (.depend,$(wildcard .depend))
 include .depend
