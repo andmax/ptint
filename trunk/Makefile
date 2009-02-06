@@ -8,13 +8,13 @@ CXX = g++
 #CXX = icpc
 
 # Win
-HOME = ../..
-APP = ptint.exe
-RM = del
+#HOME = ../..
+#APP = ptint.exe
+#RM = del
 
 # Linux
-#APP = ptint
-#RM = rm -f \#*
+APP = ptint
+RM = rm -f
 
 GDIR = $(HOME)/lcgtk/geomTypes
 EDIR = $(HOME)/lcgtk/errHandle
@@ -42,14 +42,14 @@ FLAGS = $(DEBUGFLAGS) \
 
 # Win
 
-LIBS =	-lGLee -lglslKernel -lglut32 -lglu32 -lopengl32 -mwindows
+#LIBS =	-lGLee -lglslKernel -lglut32 -lglu32 -lopengl32 -mwindows
 
 # Linux
 
-#LIBS =	-lglut -lGL -lGLU -lXext \
-#	-lXmu -lX11 -lm -lXi \
-#	-lglslKernel \
-#	$(ICPCFLAGS)
+LIBS =	-lglut -lGL -lGLU -lXext \
+	-lXmu -lX11 -lm -lXi \
+	-lglslKernel \
+	$(ICPCFLAGS)
 
 #-----------------------------------------------------------------------------
 
@@ -71,3 +71,4 @@ clean:
 ifeq (.depend,$(wildcard .depend))
 include .depend
 endif
+
