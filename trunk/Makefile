@@ -16,20 +16,22 @@ CXX = g++
 APP = ptint
 RM = rm -f
 
-GDIR = $(HOME)/lcgtk/geomTypes
-EDIR = $(HOME)/lcgtk/errHandle
-KDIR = $(HOME)/lcgtk/glslKernel
+LDIR = $(HOME)/lcgtk
+
+GDIR = $(LDIR)/geomTypes
+EDIR = $(LDIR)/errHandle
+KDIR = $(LDIR)/glslKernel
 PDIR = ../psiGammaTable
 
-INCLUDES = -I$(GDIR) -I$(EDIR) -I$(KDIR) -I$(PDIR)
+INCLUDES = -I$(LDIR) -I$(GDIR) -I$(EDIR) -I$(KDIR) -I$(PDIR)
 
-LIBDIR = -L$(KDIR)
+LIBDIR = -L$(LDIR)/lib
 
 OBJS = ptVol.o appVol.o ptGLut.o tfGLut.o ptint.o
 
 SRCS = $(OBJS:.o=.cc)
 
-DEBUGFLAGS = -g
+DEBUGFLAGS = #-g
 OPTFLAGS = -O3 -ffast-math
 
 ICPCFLAGS = -D_GLIBCXX_GTHREAD_USE_WEAK=0 -pthread
@@ -46,7 +48,7 @@ FLAGS = $(DEBUGFLAGS) \
 
 # Linux
 
-LIBS =	-lglut -lGL -lGLU -lXext \
+LIBS =	-lglut -lGL -lGLU -lGLee -lXext \
 	-lXmu -lX11 -lm -lXi \
 	-lglslKernel \
 	$(ICPCFLAGS)

@@ -25,7 +25,7 @@ enum frameType { still, firstStill, rotating }; ///< Frame type status
 ptVol app; ///< PT Volume application
 
 extern
-void glWrite(GLdouble x, GLdouble y, char *str);
+void glWrite(GLdouble x, GLdouble y, const char *str);
 
 /// ----------------------------------   Prototypes   -------------------------------------
 

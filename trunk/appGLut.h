@@ -24,12 +24,12 @@ extern "C" {
 /// OpenGL Write
 /// @arg x, y raster position
 /// @arg str string to write
-void glWrite(GLdouble x, GLdouble y, char *str) {
+void glWrite(GLdouble x, GLdouble y, const char *str) {
 
 	// You should call glColor* before glWrite;
 	// And the font color is also affected by texture and lighting
 	glRasterPos2d(x, y);
-	for (char *s = str; *s; s++)
+	for (char *s = (char*)str; *s; s++)
 		glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12, *s);
 
 }

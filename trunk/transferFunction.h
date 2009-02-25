@@ -32,7 +32,7 @@ extern "C" {
 using std::set;
 
 extern
-void glWrite(GLdouble x, GLdouble y, char *str);
+void glWrite(GLdouble x, GLdouble y, const char *str);
 
 /// -----------------------------   transferFunction   ----------------------------------
 

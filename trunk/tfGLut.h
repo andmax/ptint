@@ -27,7 +27,7 @@ extern ptVol app;
 transferFunction< GLfloat, GLuint > *tf;
 
 extern
-void glWrite(GLdouble x, GLdouble y, char *str);
+void glWrite(GLdouble x, GLdouble y, const char *str);
 
 /// ----------------------------------   Prototypes   -------------------------------------
 
