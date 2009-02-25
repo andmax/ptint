@@ -26,6 +26,8 @@
 #include <vector>
 #include <set>
 
+#include <algorithm>
+
 using std::vector;
 using std::set;
 using std::less;
@@ -34,6 +36,7 @@ using std::ofstream;
 using std::cout;
 using std::endl;
 using std::flush;
+using std::stable_sort;
 
 /// 4-Module operation using AND operation
 /// @arg x, y numbers to be summed
