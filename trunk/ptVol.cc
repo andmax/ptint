@@ -518,7 +518,7 @@ void ptVol::sort() {
 		}
 
 		/// STL stable sort
-		stable_sort( centroidSorted, centroidSorted + nT, less<tetCentroid>() );
+		std::sort( centroidSorted, centroidSorted + nT, less<tetCentroid>() );
 
 	} else if (sortMethod == bucket) {
 

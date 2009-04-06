@@ -61,6 +61,13 @@ static bool showInfo = true; ///< show information flag
 
 void glPTShowInfo(void) {
 
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	glOrtho(-1.2, 1.2, -1.2, 1.2, -1.2, 1.2);
+
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+
 	glColor3f(BLUE);
 
 	if (showInfo) { /// Show timing and dataset informations
@@ -70,7 +77,7 @@ void glPTShowInfo(void) {
 		sprintf(str, "First Step: %.5lf s ( %.2lf %% )", firstStepTime, 100*firstStepTime / totalTime );
 		glWrite(-1.1, 0.9, str);
 
-		sprintf(str, "Sort: %.2lf s ( %.5lf %% )", sortTime, 100*sortTime / totalTime );
+		sprintf(str, "Sort: %.5lf s ( %.5lf %% )", sortTime, 100*sortTime / totalTime );
 		glWrite(-1.1, 0.8, str);
 
 		sprintf(str, "Setup Arrays: %.5lf s ( %.2lf %% )", setupArraysTime, 100*setupArraysTime / totalTime );
@@ -124,6 +131,15 @@ void glPTDisplay(void) {
 	glClear(GL_COLOR_BUFFER_BIT);
 
 	glPTShowInfo();
+
+	if( showHelp ) {
+
+		glFinish();
+		glutSwapBuffers();
+
+		return;
+
+	}
 
 	/// Clear time
 	firstStepTime = 0.0; sortTime = 0.0;
@@ -189,6 +205,7 @@ void glPTKeyboard( unsigned char key, int x, int y ) {
 		showHelp = !showHelp;
 		if (showHelp) showInfo = false;
 		else showInfo = true;
+		if( alwaysRotating ) alwaysRotating = false;
 		break;
 	case 'b': case 'B': // change background
 		whiteBG = !whiteBG;
