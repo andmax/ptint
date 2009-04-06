@@ -20,6 +20,10 @@
 /// --------------------------------   Definitions   ------------------------------------
 
 #include <iomanip>
+#include <iostream>
+
+using std::setprecision;
+using std::cerr;
 
 #include "ptVol.h"
 
@@ -104,6 +108,8 @@ bool ptVol::glSetup() {
 
 		/// OpenGL settings
 		glEnable(GL_CULL_FACE);
+
+		/// Source alpha is applied in second fragment shader
 		glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
 
 		/// Background color
@@ -585,6 +591,9 @@ void ptVol::setupAndReorderArrays() {
 		///   and count triangle fan from the FBOs
 		idTTT = (GLuint)outputBuffer0[tetId*4 + 3];
 		cnt = (GLuint)outputBuffer1[tetId*4 + 3];
+
+		if( cnt > 6 ) cnt = 6;
+		if( idTTT > 80 ) idTTT = 80;
  
 		/// If the projection is class 2 (count = 6) the thick vertex (first) must be
 		///   updated to the intersection coordinates computed in the first step

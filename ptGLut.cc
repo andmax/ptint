@@ -21,6 +21,10 @@ extern "C" {
 #include <GL/glut.h> // gl-utility library
 }
 
+#include <iostream>
+
+using std::cerr;
+
 /// Global Variables
 
 static const char titleWin[] = "PTINT"; ///< Window title
@@ -38,6 +42,7 @@ static int xmouse, ymouse;
 static GLdouble zoom = 1.0;
 
 static frameType volumeFrame = firstStill; ///< Volume frame status
+static bool fullSorting = true; ///< Do full sorting always
 
 static bool alwaysRotating = false; ///< Always rotating state
 
@@ -60,22 +65,21 @@ void glPTShowInfo(void) {
 
 	if (showInfo) { /// Show timing and dataset informations
 
-		totalTime = firstStepTime + sortTime + setupArraysTime + secondStepTime;
 		char str[256];
 
-		sprintf(str, "First Step: %.2lf s ( %.2lf %% )", firstStepTime, 100*firstStepTime / totalTime );
+		sprintf(str, "First Step: %.5lf s ( %.2lf %% )", firstStepTime, 100*firstStepTime / totalTime );
 		glWrite(-1.1, 0.9, str);
 
-		sprintf(str, "Sort: %.2lf s ( %.2lf %% )", sortTime, 100*sortTime / totalTime );
+		sprintf(str, "Sort: %.2lf s ( %.5lf %% )", sortTime, 100*sortTime / totalTime );
 		glWrite(-1.1, 0.8, str);
 
-		sprintf(str, "Setup Arrays: %.2lf s ( %.2lf %% )", setupArraysTime, 100*setupArraysTime / totalTime );
+		sprintf(str, "Setup Arrays: %.5lf s ( %.2lf %% )", setupArraysTime, 100*setupArraysTime / totalTime );
 		glWrite(-1.1, 0.7, str);
 
-		sprintf(str, "Second Step: %.2lf s ( %.2lf %% )", secondStepTime, 100*secondStepTime / totalTime );
+		sprintf(str, "Second Step: %.5lf s ( %.2lf %% )", secondStepTime, 100*secondStepTime / totalTime );
 		glWrite(-1.1, 0.6, str);
 
-		sprintf(str, "# Tets / sec: %.2lf MTet/s ( %.2lf fps )", (app.volume.numTets / totalTime) / 1000000.0, 1.0 / totalTime );
+		sprintf(str, "# Tets / sec: %.5lf MTet/s ( %.2lf fps )", (app.volume.numTets / totalTime) / 1000000.0, 1.0 / totalTime );
 		glWrite(-1.1, 0.5, str);
 
 		sprintf(str, "# Tets: %d", app.volume.numTets );
@@ -96,11 +100,12 @@ void glPTShowInfo(void) {
 	if (showHelp) { /// Show help information
 
 		glWrite( 0.82,  1.1, "(?) close help");
-		glWrite(-0.52,  0.4, "(left-button) rotate volume");
-		glWrite(-0.52,  0.3, "(middle-button) zoom volume");
-		glWrite(-0.52,  0.2, "(right-button) open menu");
-		glWrite(-0.52,  0.1, "(b) change background W/B");
-		glWrite(-0.52,  0.0, "(w) draw volume wireframe");
+		glWrite(-0.52,  0.5, "(left-button) rotate volume");
+		glWrite(-0.52,  0.4, "(middle-button) zoom volume");
+		glWrite(-0.52,  0.3, "(right-button) open menu");
+		glWrite(-0.52,  0.2, "(b) change background W/B");
+		glWrite(-0.52,  0.1, "(w) draw volume wireframe");
+		glWrite(-0.52,  0.0, "(f) do full sorting always");
 		glWrite(-0.52, -0.1, "(r) always rotating mode");
 		glWrite(-0.52, -0.2, "(s) show/close timing information");
 		glWrite(-0.52, -0.3, "(t) open transfer function window");
@@ -114,11 +119,17 @@ void glPTShowInfo(void) {
 
 void glPTDisplay(void) {
 
+	static struct timeval starttime, endtime;
+
 	glClear(GL_COLOR_BUFFER_BIT);
+
+	glPTShowInfo();
 
 	/// Clear time
 	firstStepTime = 0.0; sortTime = 0.0;
 	setupArraysTime = 0.0; secondStepTime = 0.0;
+
+	gettimeofday(&starttime, 0);
 
 	/// Reset transformations
 	glMatrixMode(GL_MODELVIEW);
@@ -131,7 +142,8 @@ void glPTDisplay(void) {
 	if (volumeFrame == rotating) {
 
 		app.firstStep(firstStepTime);
-		app.sort(sortTime, bucket);
+		if( fullSorting ) app.sort(sortTime, centroid);
+		else app.sort(sortTime, bucket);
 		app.setupAndReorderArrays(setupArraysTime);
 
 	} else if (volumeFrame == firstStill) {
@@ -145,13 +157,17 @@ void glPTDisplay(void) {
 	}
 
 	if (drawWire) app.drawWireFrame();
-	else app.secondStep(secondStepTime);
+	else app.secondStep();
 
 	glPopMatrix();
 
-	glPTShowInfo();
-
+	glFinish();
 	glutSwapBuffers();
+
+	gettimeofday(&endtime, 0);
+	totalTime = (endtime.tv_sec - starttime.tv_sec) + (endtime.tv_usec - starttime.tv_usec)/1000000.0;
+
+	secondStepTime = totalTime - (firstStepTime + sortTime + setupArraysTime);
 
 }
 
@@ -178,6 +194,9 @@ void glPTKeyboard( unsigned char key, int x, int y ) {
 		whiteBG = !whiteBG;
 		if (whiteBG) app.setColor(WHITE);
 		else app.setColor(BLACK);
+		break;
+	case 'f': case 'F': // full sorting
+		fullSorting = !fullSorting;
 		break;
 	case 'w': case 'W': // wireframe
 		drawWire = !drawWire;

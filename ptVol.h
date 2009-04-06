@@ -22,7 +22,7 @@
 #ifndef _PTVOL_H_
 #define _PTVOL_H_
 
-#include <ctime>
+#include <sys/time.h>
 
 #include "glslKernel.h"
 
@@ -89,9 +89,11 @@ public:
 	/// @arg readFBOTime returns the time spent to read the FBOs
 	/// @return total time spent in the first step
 	void firstStep(GLdouble& totalTime) {
-		clock_t ctBegin = clock();
+		static struct timeval starttime, endtime;
+		gettimeofday(&starttime, 0);
 		firstStep();
-		totalTime = ( clock() - ctBegin ) / (GLdouble)CLOCKS_PER_SEC;
+		gettimeofday(&endtime, 0);
+		totalTime = (endtime.tv_sec - starttime.tv_sec) + (endtime.tv_usec - starttime.tv_usec)/1000000.0;
 	}
 	void firstStep(void);
 
@@ -99,9 +101,11 @@ public:
 	///   Sort the tetrahedra using the selected sort method
 	/// @arg totalTime returns total time spent in sorting
 	void sort(GLdouble& totalTime, sortType _sT = none) {
-		clock_t ctBegin = clock();
+		static struct timeval starttime, endtime;
+		gettimeofday(&starttime, 0);
 		sort(_sT);
-		totalTime = ( clock() - ctBegin ) / (GLdouble)CLOCKS_PER_SEC;
+		gettimeofday(&endtime, 0);
+		totalTime = (endtime.tv_sec - starttime.tv_sec) + (endtime.tv_usec - starttime.tv_usec)/1000000.0;
 	}
 	void sort(sortType _sT) {
 		setSortMethod(_sT);
@@ -115,9 +119,11 @@ public:
 	///   the first step output buffers
 	/// @arg totalTime returns total time spent in the setup step
 	void setupAndReorderArrays(GLdouble& totalTime) {
-		clock_t ctBegin = clock();
+		static struct timeval starttime, endtime;
+		gettimeofday(&starttime, 0);
 		setupAndReorderArrays();
-		totalTime = ( clock() - ctBegin ) / (GLdouble)CLOCKS_PER_SEC;
+		gettimeofday(&endtime, 0);
+		totalTime = (endtime.tv_sec - starttime.tv_sec) + (endtime.tv_usec - starttime.tv_usec)/1000000.0;
 	}
 	void setupAndReorderArrays(void);
 
@@ -126,9 +132,11 @@ public:
 	///   to draw all vertices stored into vertexArray and colorArray
 	/// @arg totalTime returns total time spent in the second step
 	void secondStep(GLdouble& totalTime) {
-		clock_t ctBegin = clock();
+		static struct timeval starttime, endtime;
+		gettimeofday(&starttime, 0);
 		secondStep();
-		totalTime = ( clock() - ctBegin ) / (GLdouble)CLOCKS_PER_SEC;
+		gettimeofday(&endtime, 0);
+		totalTime = (endtime.tv_sec - starttime.tv_sec) + (endtime.tv_usec - starttime.tv_usec)/1000000.0;
 	}
 	void secondStep(void);
 

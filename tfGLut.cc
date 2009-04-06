@@ -21,6 +21,10 @@ extern "C" {
 #include <GL/glut.h> // gl-utility library
 }
 
+#include <iostream>
+
+using std::cerr;
+
 /// Global Variables
 
 static const char titleWin[] = "Transfer Function Editing"; ///< Window title
