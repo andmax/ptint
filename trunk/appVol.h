@@ -24,6 +24,8 @@ extern "C" {
 
 #include <string>
 
+using std::string;
+
 #include "offVol.h"
 
 /// ----------------------------------   appVol   ------------------------------------
