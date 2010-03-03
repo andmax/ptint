@@ -21,9 +21,8 @@ LDIR = $(HOME)/lcgtk
 GDIR = $(LDIR)/geomTypes
 EDIR = $(LDIR)/errHandle
 KDIR = $(LDIR)/glslKernel
-PDIR = ../psiGammaTable
 
-INCLUDES = -I$(LDIR) -I$(GDIR) -I$(EDIR) -I$(KDIR) -I$(PDIR)
+INCLUDES = -I$(LDIR) -I$(GDIR) -I$(EDIR) -I$(KDIR)
 
 LIBDIR = -L$(LDIR)/lib
 
