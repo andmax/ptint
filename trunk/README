@@ -1,0 +1,73 @@
+*************************************************************************
+**                                                                     **
+**       PTINT - Project Tetrahedra with Partial Pre-Integration       **
+**                                                                     **
+**                              README File                            **
+**                                                                     **
+*************************************************************************
+
+    PTINT is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    PTINT is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+Abstract:
+
+We present a practical approach for implementing the Projected
+Tetrahedra (PT) algorithm for interactive volume rendering of
+unstructured data using programmable graphics cards. Unlike similar
+works reported earlier, our method employs two fragment shaders, one
+for computing the tetrahedra projections and another for rendering the
+elements. We achieve interactive rates by storing the model in texture
+memory and avoiding redundant projections of implementations using
+vertex shaders. Our algorithm is capable of rendering over 2.0M Tet/s
+on current graphics hardware, making it competitive with recent
+ray-casting approaches, while occupying a substantially smaller memory
+footprint.
+
+Instalation:
+
+    PTINT code was written and tested on Linux platform using OpenGL
+    Easy Extension (GLee) for extension functions, OpenGL Utility Toolkit
+    (GLUT) for interface functions and LCG Toolkit from LCG/COPPE/UFRJ.
+    To download and/or see more information about above dependencies see:
+
+    GLee: http://www.opengl.org/sdk/libs/GLee
+    GLUT: http://www.opengl.org/resources/libraries/glut
+    LCG-Toolkit: http://code.google.com/p/lcgtk
+
+    In order to proper compile the PTINT code, the GLee and GLUT should be
+    on a default include directory: GL/; and the LCG Toolkit should be in
+    HOME/lcgtk.  The Makefile can be optionally edited to reflect specific
+    configurations.
+
+Usage:
+
+    PTINT program is designed to run using a GPU that supports OpenGL
+    Shading language.  It has been tested on a GeForce 6800 series.
+
+    Command line: ./ptint 'volume'
+
+    PTINT program searches by default a directory with volume
+    information named: ../tet_offs/.  For example, run it by calling:
+
+    $ ./ptint spx2
+
+    and it will search for: ../tet_offs/spx2.off.  Additionally, files
+    named spx2.tf and spx2.lmt will also be opened in the same directory.
+    If they don't exist, they will be computed and created.  The only
+    required file is the volume itself: ../tet_offs/'volume'.off.
+
+File Formats:
+
+    .off   -   Model file ( vertex position and tetrahedra ids )
+    .tf    -   Transfer Function file
+    .lmt   -   limits file ( maxEdgeLength, maxZ and minZ values )
