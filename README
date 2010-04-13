@@ -6,18 +6,19 @@
 **                                                                     **
 *************************************************************************
 
-    PTINT is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
+    PTINT is free software: you can redistribute it and/or modify it
+    under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
 
-    PTINT is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
+    PTINT is distributed in the hope that it will be useful, but
+    WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+    General Public License for more details.
 
     You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+    along with this program.  If not, see
+    <http://www.gnu.org/licenses/>.
 
 Abstract:
 
@@ -36,23 +37,24 @@ footprint.
 Instalation:
 
     PTINT code was written and tested on Linux platform using OpenGL
-    Easy Extension (GLee) for extension functions, OpenGL Utility Toolkit
-    (GLUT) for interface functions and LCG Toolkit from LCG/COPPE/UFRJ.
-    To download and/or see more information about above dependencies see:
+    Easy Extension (GLee) for extension functions, OpenGL Utility
+    Toolkit (GLUT) for interface functions and LCG Toolkit from
+    LCG/COPPE/UFRJ.  To download and/or see more information about
+    above dependencies see:
 
     GLee: http://www.opengl.org/sdk/libs/GLee
     GLUT: http://www.opengl.org/resources/libraries/glut
     LCG-Toolkit: http://code.google.com/p/lcgtk
 
-    In order to proper compile the PTINT code, the GLee and GLUT should be
-    on a default include directory: GL/; and the LCG Toolkit should be in
-    HOME/lcgtk.  The Makefile can be optionally edited to reflect specific
-    configurations.
+    In order to proper compile the PTINT code, the GLee and GLUT
+    should be on a default include directory: GL/; and the LCG Toolkit
+    should be in HOME/lcgtk.  The Makefile can be optionally edited to
+    reflect specific configurations.
 
 Usage:
 
     PTINT program is designed to run using a GPU that supports OpenGL
-    Shading language.  It has been tested on a GeForce 6800 series.
+    Shading language.  It has been tested on a nVidia GeForce 6800.
 
     Command line: ./ptint 'volume'
 
@@ -62,9 +64,10 @@ Usage:
     $ ./ptint spx2
 
     and it will search for: ../tet_offs/spx2.off.  Additionally, files
-    named spx2.tf and spx2.lmt will also be opened in the same directory.
-    If they don't exist, they will be computed and created.  The only
-    required file is the volume itself: ../tet_offs/'volume'.off.
+    named spx2.tf and spx2.lmt will also be opened in the same
+    directory.  If they don't exist, they will be computed and
+    created.  The only required file is the volume itself:
+    ../tet_offs/'volume'.off.
 
 File Formats:
 
