@@ -1,0 +1,30 @@
+*************************************************************************
+**                                                                     **
+**       PTINT - Project Tetrahedra with Partial Pre-Integration       **
+**                                                                     **
+**                        KNOWN ISSUES File                            **
+**                                                                     **
+*************************************************************************
+
+    PTINT is free software: you can redistribute it and/or modify it
+    under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    PTINT is distributed in the hope that it will be useful, but
+    WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+    General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see
+    <http://www.gnu.org/licenses/>.
+
+Issues:
+
+    PTINT is a research project under development, presenting several
+    known problems.  The improved PTINT version, called IPTINT, is not
+    integrated within the original PTINT, being in a separate
+    subdirectory iptint/.  IPTINT adds isosurface rendering to PTINT
+    by using gradients.  This improved version is its early stages of
+    development, presenting several bugs on its source code.
