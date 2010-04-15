@@ -1,0 +1,52 @@
+
+%
+%  $ Volume Rendering - Results tables - $
+%
+%  $Author: Andre Maximo $
+%  $Date: 2006/09/11 $
+%  $Revision: 2.0 $
+%
+
+% Original volume data
+% Data x Dimensions x Tetrahedra
+
+\begin{table}[!htb]
+  \centering
+  \begin{tabular}{|c||c|c|c|c|}
+    \hline
+    Data             &  Dimensions & Tetrahedra \\ \hline
+    \hline
+    Heart Down-Up    &  256x256x20 &   6.17 M   \\
+    Heart Front-Back &  256x256x20 &   6.17 M   \\
+    Heart Left-Right &  256x256x20 &   6.17 M   \\
+    \hline
+  \end{tabular}
+  \caption[Original data]{
+    \centering
+    Original datasets.
+  }
+  \label{tab:original_datasets}
+\end{table}
+
+% Trimmed volume data / GPU Performance
+% Data x Vertices x Tetrahedra x fps x k tets/s
+
+\begin{table}[!htb]
+  \centering
+  \begin{tabular}{|c||c|c|c|c|}
+    \hline
+    Data             & Vertices & Tetrahedra &  fps  & M tets/s \\ \hline
+    \hline
+    Heart Down-Up    &  1.27 M  &   5.98 M   &  0.35 &  2.183   \\
+    Heart Front-Back &  1.27 M  &   5.98 M   &  0.34 &  2.091   \\
+    Heart Left-Right &  1.27 M  &   5.98 M   &  0.33 &  2.067   \\
+    \hline
+  \end{tabular}
+  \caption[Performance and computed data]{
+    \centering
+    Performance and computed data from original datasets.
+  }
+  \label{tab:computed_data}
+\end{table}
+
+%
