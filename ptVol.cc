@@ -683,15 +683,17 @@ void ptVol::refreshTFandBrightness(GLfloat brightness) {
 /// Draw volume wireframe
 void ptVol::drawWireFrame() {
 
-	glEnable(GL_BLEND);
+	glPushAttrib( GL_POLYGON_BIT | GL_ENABLE_BIT );
+
+	glDisable(GL_BLEND);
 
 	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+
+	glColor3f( 0.2, 0.2, 0.2 );
 
 	for (GLuint i = 0; i < volume.numTets; ++i) {
 
 		for (GLuint f = 0; f < 4; ++f) {
-
-			glColor4f( 1.0, 1.0, 0.0, 0.8 );
 
 			glBegin(GL_TRIANGLES);
 
@@ -709,8 +711,6 @@ void ptVol::drawWireFrame() {
 
 	}
 
-	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-
-	glDisable(GL_BLEND);
+	glPopAttrib();
 
 }

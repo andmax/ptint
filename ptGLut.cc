@@ -29,7 +29,8 @@ using std::cerr;
 
 static const char titleWin[] = "PTINT"; ///< Window title
 
-static int winWidth = 512, winHeight = 512; ///< Window size
+//static int winWidth = 512, winHeight = 512; ///< Window size
+static int winWidth = 1332, winHeight = 999; ///< Window size
 
 int ptWinId; ///< PT Window id
 
